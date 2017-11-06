@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Survey Questions</title>
+  <title>survey</title>
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
@@ -17,7 +17,10 @@
       <a href="home.html"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-eye-open"></span> Home</button></a>
     
     <hr>
-    <form method="POST" class="surveryME">
+    <form method="POST" class="surveryME" onsubmit="return checkForm()">
+
+    <!-- blah blah blah check here -->
+    
       <h4>Give me your Name (Required)</h4>
         <input type="type" name="fullname" class="form-control" placeholder="Full Name" required>
       <h4>Selfie Link (Required)</h4>
@@ -155,7 +158,7 @@
         </select>
         <br><br>
 
-        <button type="button" class="btn btn-info">Submit Here</button>
+        <button type="button" class="btn btn-info" id="submit-btn">Submit Here</button>
     </form>
     
     <hr>
@@ -170,23 +173,13 @@
   </div>
 
   <script type="text/javascript">
-    // Question: What does this code do?
-    $("#add-btn").on("click", function(event) {
-      event.preventDefault();
-      var newCharacter = {
-        name: $("#name").val().trim(),
-        role: $("#role").val().trim(),
-        age: $("#age").val().trim(),
-        forcePoints: $("#force-points").val().trim()
-      };
-
-      // Question: What does this code do??
-      $.post("/api/new", newCharacter)
-      .done(function(data) {
-        console.log(data);
-        alert("Adding character...");
-      });
-    });
+    function checkForm(){
+      var x = document.forms["myForm"]["fname"].value;
+        if (x == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+    };
   </script>
 
 </body>
