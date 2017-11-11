@@ -1,13 +1,7 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-
-var app = express();
-var PORT = process.env.PORT || 2000;
-
 var profile = {
 	{
-	  "name":"Ahmed",
-	  "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+	  "name":"Katie",
+	  "photo":"https://pbs.twimg.com/profile_images/625189339404697601/UCyR0bCD.jpg",
 	  "scores":[
 	      5,
 	      1,
@@ -20,11 +14,23 @@ var profile = {
 	      4,
 	      1
 	    ]
+	},
+	{
+	  "name":"Baby Groot",
+	  "photo":"https://i.ytimg.com/vi/MXKezh_Q8N8/maxresdefault.jpg",
+	  "scores":[
+	      3,
+	      1,
+	      5,
+	      4,
+	      2,
+	      4,
+	      3,
+	      3,
+	      1,
+	      5
+	    ]
 	}
 }
-
-app.listen(PORT, function(){
-	console.log("App listening on PORT", PORT);
-})
 
 module.exports = profile;
