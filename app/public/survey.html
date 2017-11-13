@@ -20,9 +20,9 @@
     <form method="POST" class="surveryME" onsubmit="return checkForm()">
     
       <h4>Give me your Name (Required)</h4>
-        <input type="type" name="fullname" class="form-control name" placeholder="Full Name" required>
+        <input type="type" id="fullname" class="form-control name" placeholder="Full Name" required>
       <h4>Selfie Link (Required)</h4>
-        <input type="url" name="selfie" class="form-control selfie" placeholder="Make it a good selfie" required>
+        <input type="url" id="selfie" class="form-control selfie" placeholder="Make it a good selfie" required>
 
       <hr> 
       
@@ -30,7 +30,7 @@
       <div class="form">
         <h3>Question 1:</h3>
         <h4>How likely are you to keep your promises?</h4>
-          <select name="q1a">
+          <select class = "chosen" id="q1a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -43,7 +43,7 @@
         <!-- Question 2 -->
         <h3>Question 2:</h3>
         <h4>How strong would you said your communication skills are?</h4>
-          <select name="q2a">
+          <select class = "chosen" id="q2a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -56,7 +56,7 @@
         <!-- Question 3 -->
         <h3>Question 3:</h3>
         <h4>How likely are you going to choose Chinese food for dinner?</h4>
-          <select name="q3a">
+          <select class = "chosen" id="q3a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -69,7 +69,7 @@
         <!-- Question 4 -->
         <h3>Question 4:</h3>
         <h4>How likely are you going to go out drinking every weekend?</h4>
-          <select name="q4a">
+          <select class = "chosen" id="q4a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -82,7 +82,7 @@
         <!-- Question 5 -->
         <h3>Question 5:</h3>
         <h4>How likely are you going to choose soda as a beverage?</h4>
-          <select name="q5a">
+          <select class = "chosen" id="q5a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -95,7 +95,7 @@
         <!-- Question 6 -->
         <h3>Question 6:</h3>
         <h4>How likely are you to be noted as a very quick paced person?</h4>
-          <select name="q6a">
+          <select class = "chosen" id="q6a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -108,7 +108,7 @@
         <!-- Question 7 -->
         <h3>Question 7:</h3>
         <h4>How likely are you going to choose Mac over PC?</h4>
-          <select name="q7a">
+          <select class = "chosen" id="q7a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -121,7 +121,7 @@
         <!-- Question 8 -->
         <h3>Question 8:</h3>
         <h4>How likely are you going to ride a bike with no handlebars?</h4>
-          <select name="q8a">
+          <select class = "chosen" id="q8a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -134,7 +134,7 @@
         <!-- Question 9 -->
         <h3>Question 9:</h3>
         <h4>How likely are you going to move out of state within the next 5 years?</h4>
-          <select name="q9a">
+          <select class = "chosen" id="q9a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -147,7 +147,7 @@
         <!-- Question 10 -->
         <h3>Question 10:</h3>
         <h4>How likely are you going to go back to school to advance your eduaction?</h4>
-          <select name="q10a">
+          <select class = "chosen" id="q10a">
             <option value>Click to pick answer </option>
             <option value="a1">a1 Very Likely</option>
             <option value="a2">a2</option>
@@ -171,28 +171,76 @@
       </p>
     </div>
 
+    <div id="modal" role="dialog">
+      <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title"><strong>Best Match: GoodLuck!</strong></h2>
+        </div>
+        <div class="modal-body">
+          <h2 id="matchName"></h2>
+          <img id="matchImg" src="#" alt="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">BYEEEE</button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
   <script type="text/javascript">
-    $("#submit-btn").on("click", function(event){
-      event.preventDefault();
-
-      var profile = {
-        name: $(".name").val().trim(),
-        selfie: $(".selfie").val().trim(),
-        form: $(".form").val().trim()
-      };
-      console.log(profile);
-
-      $.post("/api/survey", profile, function(data){
-        if(data){
-          alert("We got your info!");
-        } else {
-          alert("Finish your profile!")
-        }
+   $("#submit-btn").on("click", function(){
+      // Form validation
+      function validateForm() {
+      var isValid = true;
+      $('.form-control').each(function() {
+        if ( $(this).val() === '' )
+            //isValid = false;
+          isValid = false
+      });
+      $('.chosen').each(function() {
+        if( $(this).val() === "")
+          //isValid = false
+          isValid = false
       })
-
+      return isValid;
+    }
+    // If all required fields are filled
+    if (validateForm() == true)
+    {
+      // Create an object for the user's data
+        var userData = {
+          name: $("#fullname").val(),
+          photo: $("#selfie").val(),
+          scores: [$("#q1a").val(), $("#q2a").val(), $("#q3a").val(), $("#q4a").val(), $("#q5a").val(), $("#q6a").val(), $("#q7a").val(), $("#q8a").val(), $("#q9a").val(), $("#q10a").val()]
+        }
+        // Grab the URL of the website
+        var currentURL = window.location.origin;
+        // AJAX post the data to the friends API. 
+        
+        $.post(currentURL + "/api/survey", userData, function(data){
+          $("#matchName").text(data.name);
+          $('#matchImg').attr("src", data.photo);
+          // Show the modal with the best match 
+          $("#resultsModal").modal('toggle');
+        }); //$.post
+    }
+    else
+    {
+      alert("Finish the form if you want a friend!");
+    }
+      
+      return false;
     });
+
+
+
+
   </script>
 
 </body>
